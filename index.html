@@ -26,95 +26,99 @@
   <script type="text/babel">
     const { useState, useEffect } = React;
 
+    // 從 Molly's English Studio 統測高頻單字表中擷取
     const wordDatabase = [
-      // Unit 5
-      { id: 1, en: 'although', zh: '雖然' },
-      { id: 2, en: 'matter', zh: '問題；事件' },
-      { id: 3, en: 'sore throat', zh: '喉嚨痛' },
-      { id: 4, en: 'explain', zh: '解釋' },
-      { id: 5, en: 'cough', zh: '咳嗽' },
-      { id: 6, en: 'probably', zh: '很可能；大概' },
-      { id: 7, en: 'take care of', zh: '照顧' },
-      { id: 8, en: 'noon', zh: '中午' },
-      { id: 9, en: 'both', zh: '兩者（都）' },
-      { id: 10, en: 'sick', zh: '生病的' },
-      { id: 11, en: 'medicine', zh: '藥' },
-      { id: 12, en: 'honey', zh: '蜂蜜' },
-      { id: 13, en: 'lemon', zh: '檸檬' },
-      { id: 14, en: 'useful', zh: '有用的' },
-      { id: 15, en: 'head', zh: '頭' },
-      { id: 16, en: 'headache', zh: '頭痛' },
-      { id: 17, en: 'stomachache', zh: '胃痛' },
-      { id: 18, en: 'fever', zh: '發燒' },
-      { id: 19, en: 'runny nose', zh: '流鼻水' },
-      { id: 20, en: 'knee', zh: '膝蓋' },
-      { id: 21, en: 'nail', zh: '指甲' },
-      { id: 22, en: 'finger', zh: '手指' },
-      { id: 23, en: 'neck', zh: '脖子' },
-      { id: 24, en: 'shoulder', zh: '肩膀' },
-      { id: 25, en: 'common', zh: '常見的；共同的' },
-      { id: 26, en: 'actually', zh: '實際上；事實上' },
-      { id: 27, en: 'helpful', zh: '有幫助的' },
-      { id: 28, en: 'root', zh: '根' },
-      { id: 29, en: 'reason', zh: '原因；理由' },
-      { id: 30, en: 'stand', zh: '攤位' },
-      { id: 31, en: 'feel like', zh: '想要' },
-      { id: 32, en: 'cold', zh: '感冒' },
-      { id: 33, en: 'well', zh: '健康的' },
-      { id: 34, en: 'must', zh: '必要的事物' },
-      { id: 35, en: 'under the weather', zh: '身體不舒服' },
-      { id: 36, en: 'treat', zh: '治療' },
-      { id: 37, en: 'recipe', zh: '食譜' },
-      { id: 38, en: 'culture', zh: '文化' },
-      { id: 39, en: 'garlic', zh: '大蒜' },
-      { id: 40, en: 'ginger', zh: '薑' },
-
-      // Unit 6
-      { id: 41, en: 'pass', zh: '傳遞' },
-      { id: 42, en: 'throw', zh: '丟；投擲' },
-      { id: 43, en: 'point', zh: '得分' },
-      { id: 44, en: 'win', zh: '贏；獲勝' },
-      { id: 45, en: 'group', zh: '團體' },
-      { id: 46, en: 'grade', zh: '成績' },
-      { id: 47, en: 'fail', zh: '考不及格；失敗' },
-      { id: 48, en: 'test', zh: '考試' },
-      { id: 49, en: 'afraid', zh: '害怕的；擔憂的' },
-      { id: 50, en: 'smart', zh: '聰明的' },
-      { id: 51, en: 'begin', zh: '開始' },
-      { id: 52, en: 'meeting', zh: '會議；會面' },
-      { id: 53, en: 'simple', zh: '簡單的' },
-      { id: 54, en: 'expect', zh: '預計；期望' },
-      { id: 55, en: 'mistake', zh: '錯誤' },
-      { id: 56, en: 'angle', zh: '立場；角度' },
-      { id: 57, en: 'allow', zh: '允許' },
-      { id: 58, en: 'laugh', zh: '笑；笑聲' },
-      { id: 59, en: 'bring', zh: '帶來；攜帶' },
-      { id: 60, en: 'honest', zh: '誠實的；可信的' },
-      { id: 61, en: 'lead to', zh: '導致' },
-      { id: 62, en: 'push', zh: '迫使；推動' },
-      { id: 63, en: 'excellent', zh: '優秀的；極佳的' },
-      { id: 64, en: 'be able to', zh: '能夠' },
-      { id: 65, en: 'define', zh: '下定義；界定' },
-      { id: 66, en: 'come on', zh: '快點；少來了' },
-      { id: 67, en: 'excuse', zh: '藉口；理由' },
-      { id: 68, en: 'around the corner', zh: '即將來臨；在附近' },
-      { id: 69, en: 'hold back', zh: '阻礙' },
-      { id: 70, en: 'count... in', zh: '算...參加一份' },
-      { id: 71, en: 'keep in mind', zh: '記住' },
-      { id: 72, en: 'matter', zh: '要緊；重要' },
-      { id: 73, en: 'picture', zh: '想像' },
-      { id: 74, en: 'as for', zh: '至於' },
-      { id: 75, en: 'to the full', zh: '盡可能' },
-      { id: 76, en: 'fair', zh: '展覽會' },
-      { id: 77, en: 'creative', zh: '有創意的' },
-      { id: 78, en: 'stereotype', zh: '刻板印象；對...有偏見' },
-      { id: 79, en: 'judgement', zh: '判斷' },
-      { id: 80, en: 'respect', zh: '尊重' },
-      { id: 81, en: 'gender', zh: '性別' },
-      { id: 82, en: 'self', zh: '自我' },
-      { id: 83, en: 'talent', zh: '人才；天分' },
-      { id: 84, en: 'designer', zh: '設計師' },
-      { id: 85, en: 'record', zh: '紀錄；記載' }
+      { id: 1, en: 'achieve', zh: '達到' }, { id: 2, en: 'realize', zh: '意識到' }, { id: 3, en: 'advantage', zh: '優勢' },
+      { id: 4, en: 'allow', zh: '允許' }, { id: 5, en: 'almost', zh: '幾乎' }, { id: 6, en: 'nearly', zh: '幾乎' },
+      { id: 7, en: 'alter', zh: '改變' }, { id: 8, en: 'alternate', zh: '備用' }, { id: 9, en: 'change', zh: '改變' },
+      { id: 10, en: 'changeable', zh: '多變的' }, { id: 11, en: 'switch', zh: '轉變' }, { id: 12, en: 'always', zh: '總是' },
+      { id: 13, en: 'announce', zh: '宣告' }, { id: 14, en: 'announcement', zh: '公告' }, { id: 15, en: 'applicant', zh: '申請人' },
+      { id: 16, en: 'apply', zh: '申請' }, { id: 17, en: 'appreciate', zh: '欣賞' }, { id: 18, en: 'appreciation', zh: '欣賞' },
+      { id: 19, en: 'assist', zh: '協助' }, { id: 20, en: 'support', zh: '支援' }, { id: 21, en: 'associate', zh: '聯繫' },
+      { id: 22, en: 'association', zh: '協會' }, { id: 23, en: 'attack', zh: '攻擊' }, { id: 24, en: 'attendant', zh: '服務生' },
+      { id: 25, en: 'attention', zh: '注意力' }, { id: 26, en: 'attract', zh: '吸引' }, { id: 27, en: 'attraction', zh: '景點' },
+      { id: 28, en: 'attractive', zh: '吸引人的' }, { id: 29, en: 'avoid', zh: '避免' }, { id: 30, en: 'prevent', zh: '防止' },
+      { id: 31, en: 'believable', zh: '可信的' }, { id: 32, en: 'believe', zh: '相信' }, { id: 33, en: 'benefit', zh: '益處' },
+      { id: 34, en: 'break', zh: '打破' }, { id: 35, en: 'break up with', zh: '分手' }, { id: 36, en: 'bright', zh: '明亮的' },
+      { id: 37, en: 'brilliant', zh: '傑出的' }, { id: 38, en: 'call', zh: '打電話' }, { id: 39, en: 'capable', zh: '有能力的' },
+      { id: 40, en: 'capacity', zh: '容量' }, { id: 41, en: 'casually', zh: '隨意地' }, { id: 42, en: 'choice', zh: '選項' },
+      { id: 43, en: 'option', zh: '選項' }, { id: 44, en: 'companion', zh: '伴侶' }, { id: 45, en: 'company', zh: '公司' },
+      { id: 46, en: 'compete', zh: '競爭' }, { id: 47, en: 'competition', zh: '競賽' }, { id: 48, en: 'competitor', zh: '競爭者' },
+      { id: 49, en: 'compose', zh: '作曲' }, { id: 50, en: 'conflict', zh: '衝突' }, { id: 51, en: 'confuse', zh: '迷惑' },
+      { id: 52, en: 'confused', zh: '困惑的' }, { id: 53, en: 'confusion', zh: '錯亂' }, { id: 54, en: 'connect', zh: '連接' },
+      { id: 55, en: 'connection', zh: '聯繫' }, { id: 56, en: 'constant', zh: '持續的' }, { id: 57, en: 'constantly', zh: '不斷地' },
+      { id: 58, en: 'contain', zh: '包含' }, { id: 59, en: 'contribute', zh: '貢獻' }, { id: 60, en: 'convince', zh: '說服' },
+      { id: 61, en: 'persuade', zh: '說服' }, { id: 62, en: 'convincing', zh: '令人信服的' }, { id: 63, en: 'crisis', zh: '危機' },
+      { id: 64, en: 'damage', zh: '損害' }, { id: 65, en: 'danger', zh: '危險' }, { id: 66, en: 'risk', zh: '風險' },
+      { id: 67, en: 'endangered', zh: '瀕危的' }, { id: 68, en: 'definitely', zh: '絕對地' }, { id: 69, en: 'delay', zh: '延遲' },
+      { id: 70, en: 'put off', zh: '延遲' }, { id: 71, en: 'deny', zh: '否定' }, { id: 72, en: 'disappear', zh: '消失' },
+      { id: 73, en: 'vanish', zh: '消失' }, { id: 74, en: 'disappoint', zh: '使失望' }, { id: 75, en: 'discover', zh: '發現' },
+      { id: 76, en: 'discovery', zh: '發現' }, { id: 77, en: 'discuss', zh: '討論' }, { id: 78, en: 'donate', zh: '捐贈' },
+      { id: 79, en: 'doubt', zh: '懷疑' }, { id: 80, en: 'doubtful', zh: '可疑的' }, { id: 81, en: 'suspicious', zh: '可疑的' },
+      { id: 82, en: 'drop', zh: '掉落' }, { id: 83, en: 'drop out', zh: '輟學' }, { id: 84, en: 'emotion', zh: '情感' },
+      { id: 85, en: 'encourage', zh: '鼓勵' }, { id: 86, en: 'establish', zh: '建立' }, { id: 87, en: 'set up', zh: '設定' },
+      { id: 88, en: 'energy', zh: '活力' }, { id: 89, en: 'large', zh: '大的' }, { id: 90, en: 'enlarge', zh: '放大' },
+      { id: 91, en: 'enormous', zh: '巨大的' }, { id: 92, en: 'tremendous', zh: '巨大的' }, { id: 93, en: 'envious', zh: '羡慕的' },
+      { id: 94, en: 'envy', zh: '嫉妒' }, { id: 95, en: 'jealous', zh: '嫉妒的' }, { id: 96, en: 'eventually', zh: '最終' },
+      { id: 97, en: 'finally', zh: '最終' }, { id: 98, en: 'terminal', zh: '航廈' }, { id: 99, en: 'exaggerate', zh: '誇大' },
+      { id: 100, en: 'exchange', zh: '交換' }, { id: 101, en: 'excuse', zh: '藉口' }, { id: 102, en: 'explore', zh: '探索' },
+      { id: 103, en: 'explorer', zh: '探險家' }, { id: 104, en: 'expose', zh: '暴露' }, { id: 105, en: 'exposure', zh: '曝露' },
+      { id: 106, en: 'express', zh: '表達' }, { id: 107, en: 'expressive', zh: '富表現力的' }, { id: 108, en: 'extreme', zh: '極端的' },
+      { id: 109, en: 'extremely', zh: '極為' }, { id: 110, en: 'fame', zh: '名聲' }, { id: 111, en: 'famous', zh: '著名的' },
+      { id: 112, en: 'reputation', zh: '名聲' }, { id: 113, en: 'fatigue', zh: '疲勞' }, { id: 114, en: 'tiredness', zh: '疲勞' },
+      { id: 115, en: 'weary', zh: '疲倦的' }, { id: 116, en: 'weak', zh: '虚弱的' }, { id: 117, en: 'weaken', zh: '削弱' },
+      { id: 118, en: 'fear', zh: '害怕' }, { id: 119, en: 'fearful', zh: '可怕的' }, { id: 120, en: 'firm', zh: '公司' },
+      { id: 121, en: 'firmly', zh: '牢牢地' }, { id: 122, en: 'fit', zh: '合身' }, { id: 123, en: 'fitness', zh: '健康' },
+      { id: 124, en: 'float', zh: '漂浮' }, { id: 125, en: 'former', zh: '以前的' }, { id: 126, en: 'previous', zh: '以前的' },
+      { id: 127, en: 'forget', zh: '忘記' }, { id: 128, en: 'unforgettable', zh: '難忘的' }, { id: 129, en: 'found', zh: '成立' },
+      { id: 130, en: 'founder', zh: '創辦人' }, { id: 131, en: 'greet', zh: '打招呼' }, { id: 132, en: 'greeting', zh: '問候語' },
+      { id: 133, en: 'hardly', zh: '幾乎不' }, { id: 134, en: 'scarcely', zh: '幾乎不' }, { id: 135, en: 'heal', zh: '癒合' },
+      { id: 136, en: 'treat', zh: '治療' }, { id: 137, en: 'hurry', zh: '匆忙' }, { id: 138, en: 'identical', zh: '完全相同的' },
+      { id: 139, en: 'identify', zh: '確認' }, { id: 140, en: 'recognize', zh: '認可' }, { id: 141, en: 'identity', zh: '身分' },
+      { id: 142, en: 'ignore', zh: '忽略' }, { id: 143, en: 'neglect', zh: '忽略' }, { id: 144, en: 'impress', zh: '留下深刻印象' },
+      { id: 145, en: 'impression', zh: '印象' }, { id: 146, en: 'improve', zh: '提升' }, { id: 147, en: 'indicate', zh: '表明' },
+      { id: 148, en: 'suggest', zh: '建議' }, { id: 149, en: 'interior', zh: '內部的' }, { id: 150, en: 'internal', zh: '內部的' },
+      { id: 151, en: 'invade', zh: '入侵' }, { id: 152, en: 'invasion', zh: '入侵' }, { id: 153, en: 'job', zh: '職業' },
+      { id: 154, en: 'work', zh: '工作' }, { id: 155, en: 'keep', zh: '保持' }, { id: 156, en: 'keep up with', zh: '跟上' },
+      { id: 157, en: 'knowledge', zh: '知識' }, { id: 158, en: 'launch', zh: '推出' }, { id: 159, en: 'light', zh: '點亮' },
+      { id: 160, en: 'lighten', zh: '減輕' }, { id: 161, en: 'likelihood', zh: '可能性' }, { id: 162, en: 'likeness', zh: '相似' },
+      { id: 163, en: 'similarity', zh: '相似' }, { id: 164, en: 'take after', zh: '與...相似' }, { id: 165, en: 'likewise', zh: '同樣地' },
+      { id: 166, en: 'liking', zh: '喜歡' }, { id: 167, en: 'unlikely', zh: '不太可能' }, { id: 168, en: 'loose', zh: '鬆的' },
+      { id: 169, en: 'loosely', zh: '鬆散地' }, { id: 170, en: 'margin', zh: '利潤' }, { id: 171, en: 'marginally', zh: '稍微地' },
+      { id: 172, en: 'medical', zh: '醫療的' }, { id: 173, en: 'medication', zh: '藥物' }, { id: 174, en: 'melt', zh: '融化' },
+      { id: 175, en: 'message', zh: '訊息' }, { id: 176, en: 'miss', zh: '錯過' }, { id: 177, en: 'misunderstand', zh: '誤解' },
+      { id: 178, en: 'understandable', zh: '可以理解的' }, { id: 179, en: 'natural', zh: '自然的' }, { id: 180, en: 'nature', zh: '自然' },
+      { id: 181, en: 'occasion', zh: '場合' }, { id: 182, en: 'occasional', zh: '偶而的' }, { id: 183, en: 'occasionally', zh: '偶爾' },
+      { id: 184, en: 'opening', zh: '開幕' }, { id: 185, en: 'openly', zh: '公開地' }, { id: 186, en: 'original', zh: '原來的' },
+      { id: 187, en: 'own', zh: '擁有' }, { id: 188, en: 'possess', zh: '擁有' }, { id: 189, en: 'pleasant', zh: '令人愉快的' },
+      { id: 190, en: 'pleasure', zh: '樂趣' }, { id: 191, en: 'pollution', zh: '污染' }, { id: 192, en: 'possibility', zh: '可能性' },
+      { id: 193, en: 'predict', zh: '預測' }, { id: 194, en: 'prediction', zh: '預言' }, { id: 195, en: 'prepare', zh: '準備' },
+      { id: 196, en: 'presence', zh: '在場' }, { id: 197, en: 'present', zh: '禮物' }, { id: 198, en: 'presentation', zh: '呈現' },
+      { id: 199, en: 'produce', zh: '生產' }, { id: 200, en: 'product', zh: '產品' }, { id: 201, en: 'protect', zh: '保護' },
+      { id: 202, en: 'protective', zh: '保護的' }, { id: 203, en: 'propose', zh: '提出' }, { id: 204, en: 'put forward', zh: '提出' },
+      { id: 205, en: 'rapidly', zh: '迅速地' }, { id: 206, en: 'swift', zh: '迅速的' }, { id: 207, en: 'reason', zh: '原因' },
+      { id: 208, en: 'reasonable', zh: '合理的' }, { id: 209, en: 'recently', zh: '最近' }, { id: 210, en: 'recover', zh: '恢復' },
+      { id: 211, en: 'recovery', zh: '恢復' }, { id: 212, en: 'reduce', zh: '減少' }, { id: 213, en: 'reflect', zh: '反映' },
+      { id: 214, en: 'refuse', zh: '拒絕' }, { id: 215, en: 'reject', zh: '拒絕' }, { id: 216, en: 'turn down', zh: '駁回' },
+      { id: 217, en: 'regular', zh: '常規的' }, { id: 218, en: 'regularly', zh: '規律地' }, { id: 219, en: 'relationship', zh: '關係' },
+      { id: 220, en: 'relative', zh: '親戚' }, { id: 221, en: 'relatively', zh: '相對地' }, { id: 222, en: 'relaxation', zh: '放鬆' },
+      { id: 223, en: 'relieve', zh: '緩解' }, { id: 224, en: 'reluctantly', zh: '勉強地' }, { id: 225, en: 'unwillingly', zh: '不情願地' },
+      { id: 226, en: 'remain', zh: '保持' }, { id: 227, en: 'remind', zh: '提醒' }, { id: 228, en: 'regionally', zh: '地區性的' },
+      { id: 229, en: 'zone', zh: '區域' }, { id: 230, en: 'resistance', zh: '反抗' }, { id: 231, en: 'rebellion', zh: '叛亂' },
+      { id: 232, en: 'fight', zh: '爭鬥' }, { id: 233, en: 'respectfully', zh: '尊敬' }, { id: 234, en: 'respective', zh: '各自的' },
+      { id: 235, en: 'revise', zh: '修訂' }, { id: 236, en: 'safety', zh: '安全' }, { id: 237, en: 'sensitive', zh: '敏感的' },
+      { id: 238, en: 'shock', zh: '震驚' }, { id: 239, en: 'scare', zh: '使驚恐' }, { id: 240, en: 'shine', zh: '閃耀' },
+      { id: 241, en: 'shortly', zh: '不久' }, { id: 242, en: 'shout', zh: '喊叫' }, { id: 243, en: 'yell', zh: '喊叫' },
+      { id: 244, en: 'sign', zh: '符號' }, { id: 245, en: 'symbol', zh: '象徵' }, { id: 246, en: 'silence', zh: '安靜' },
+      { id: 247, en: 'silent', zh: '沉默的' }, { id: 248, en: 'simplify', zh: '簡化' }, { id: 249, en: 'simply', zh: '簡單地' },
+      { id: 250, en: 'soft', zh: '柔軟的' }, { id: 251, en: 'softly', zh: '輕柔的' }, { id: 252, en: 'sometimes', zh: '有時' },
+      { id: 253, en: 'frequently', zh: '頻繁地' }, { id: 254, en: 'spare', zh: '空閒的' }, { id: 255, en: 'statue', zh: '雕像' },
+      { id: 256, en: 'strange', zh: '奇怪的' }, { id: 257, en: 'stranger', zh: '陌生人' }, { id: 258, en: 'weird', zh: '詭異的' },
+      { id: 259, en: 'sufficient', zh: '充足的' }, { id: 260, en: 'survive', zh: '存活' }, { id: 261, en: 'tight', zh: '緊的' },
+      { id: 262, en: 'tightly', zh: '緊緊地' }, { id: 263, en: 'topic', zh: '話題' }, { id: 264, en: 'traveler', zh: '遊客' },
+      { id: 265, en: 'tourist', zh: '遊客' }, { id: 266, en: 'visit', zh: '拜訪' }, { id: 267, en: 'visitor', zh: '遊客' },
+      { id: 268, en: 'travel', zh: '旅行' }, { id: 269, en: 'migrate', zh: '遷移' }, { id: 270, en: 'tropical', zh: '熱帶的' },
+      { id: 271, en: 'variation', zh: '變化' }, { id: 272, en: 'variety', zh: '種類' }, { id: 273, en: 'various', zh: '各種各樣的' }
     ];
 
     function App() {
@@ -152,9 +156,9 @@
           window.speechSynthesis.cancel(); // 停止正在播放的聲音，避免連點時聲音重疊
           const utterance = new SpeechSynthesisUtterance(text);
           utterance.lang = 'en-US'; // 設定為美式發音
-          utterance.rate = 0.9; // 稍微放慢語速，讓學生聽得更清楚
+          utterance.rate = 0.8; // 調整為 0.8 語速，發音更清晰
           
-          // 如果句子中有 '...' (如 count... in)，先把它濾掉讓發音更自然
+          // 如果句子中有 '...'，先把它濾掉讓發音更自然
           utterance.text = text.replace('...', ' '); 
           window.speechSynthesis.speak(utterance);
         }
@@ -229,7 +233,7 @@
               setIsTimerRunning(false);
             }
             
-            // 停留 0.8 秒（800毫秒）後再讓卡片消失
+            // 停留 0.5 秒（500毫秒）後讓卡片消失
             setTimeout(() => {
               setMatchedIds(prev => {
                 const newMatched = [...prev, firstCard.pairId];
@@ -240,12 +244,13 @@
               });
               setFlippedIndices([]);
               setIsProcessing(false);
-            }, 800);
+            }, 500);
           } else {
+            // 配對失敗：停留 0.5 秒（500毫秒）後蓋回卡片
             setTimeout(() => {
               setFlippedIndices([]);
               setIsProcessing(false);
-            }, 800);
+            }, 500);
           }
         }
       };
@@ -342,7 +347,7 @@
                   <div 
                     key={card.uniqueId}
                     onClick={() => handleCardClick(index)}
-                    className={`relative w-full aspect-[4/3] md:aspect-square cursor-pointer transition-all duration-300 transform perspective-1000 ${isMatched ? 'opacity-0 scale-95 pointer-events-none' : 'opacity-100'}`}
+                    className={`relative w-full aspect-[4/3] md:aspect-square cursor-pointer transition-all duration-500 transform perspective-1000 ${isMatched ? 'opacity-0 scale-95 pointer-events-none' : 'opacity-100'}`}
                   >
                     <div 
                       className="w-full h-full relative preserve-3d transition-transform duration-500"
